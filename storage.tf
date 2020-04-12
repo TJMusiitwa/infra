@@ -5,6 +5,12 @@ resource "google_storage_bucket" "archive" {
   bucket_policy_only = false
 }
 
+resource "google_storage_bucket_iam_member" "archive_cloudrun" {
+  bucket = google_storage_bucket.archive.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.cloudrun.email}"
+}
+
 resource "google_storage_bucket" "symptoms" {
   name               = "covidtrace-symptoms"
   location           = "US"
@@ -30,7 +36,7 @@ resource "google_storage_bucket" "operator" {
 
 resource "google_storage_bucket_iam_member" "operator_notary" {
   bucket = google_storage_bucket.operator.name
-  role   = "roles/storage.admin"
+  role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.cloudrun.email}"
 }
 
@@ -69,6 +75,12 @@ resource "google_storage_bucket_iam_member" "locations_notary" {
   member = "serviceAccount:${google_service_account.notary.email}"
 }
 
+resource "google_storage_bucket_iam_member" "locations_cloudrun" {
+  bucket = google_storage_bucket.locations.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.cloudrun.email}"
+}
+
 resource "google_storage_bucket" "bluetooth" {
   name               = "covidtrace-tokens"
   location           = "US"
@@ -91,6 +103,12 @@ resource "google_storage_bucket_iam_member" "bluetooth_notary" {
   member = "serviceAccount:${google_service_account.notary.email}"
 }
 
+resource "google_storage_bucket_iam_member" "bluetooth_cloudrun" {
+  bucket = google_storage_bucket.bluetooth.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.cloudrun.email}"
+}
+
 resource "google_storage_bucket" "publish" {
   name               = "covidtrace-published"
   location           = "US"
@@ -100,7 +118,7 @@ resource "google_storage_bucket" "publish" {
 
 resource "google_storage_bucket_iam_member" "publish_cloudrun" {
   bucket = google_storage_bucket.publish.name
-  role   = "roles/storage.admin"
+  role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.cloudrun.email}"
 }
 
