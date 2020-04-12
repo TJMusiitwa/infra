@@ -98,6 +98,12 @@ resource "google_storage_bucket" "publish" {
   bucket_policy_only = false
 }
 
+resource "google_storage_bucket_iam_member" "publish_cloudrun" {
+  bucket = google_storage_bucket.publish.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:${google_service_account.cloudrun.email}"
+}
+
 resource "google_storage_bucket_iam_member" "publish_allusers" {
   bucket = google_storage_bucket.publish.name
   role   = "roles/storage.objectViewer"
