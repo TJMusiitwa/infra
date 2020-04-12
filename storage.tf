@@ -28,6 +28,12 @@ resource "google_storage_bucket" "operator" {
   }
 }
 
+resource "google_storage_bucket_iam_member" "operator_notary" {
+  bucket = google_storage_bucket.operator.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:${google_service_account.cloudrun.email}"
+}
+
 resource "google_storage_bucket" "exposures" {
   name               = "covidtrace-exposures"
   location           = "US"
