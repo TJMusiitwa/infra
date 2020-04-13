@@ -24,6 +24,14 @@ resource "google_cloudfunctions_function" "operator" {
   }
 }
 
+resource "google_cloudfunctions_function_iam_member" "operator_invoker" {
+  project        = google_cloudfunctions_function.operator.project
+  region         = google_cloudfunctions_function.operator.region
+  cloud_function = google_cloudfunctions_function.operator.name
+  role   = "roles/cloudfunctions.invoker"
+  member = "allUsers"
+}
+
 resource "google_cloudfunctions_function" "notary" {
   name        = "Notary"
   description = "Notary proxy method"
@@ -48,6 +56,14 @@ resource "google_cloudfunctions_function" "notary" {
     OPERATOR_QPH     = "5"
     REDIS_HOST       = "${google_redis_instance.ratelimit.host}:${google_redis_instance.ratelimit.port}"
   }
+}
+
+resource "google_cloudfunctions_function_iam_member" "notary_invoker" {
+  project        = google_cloudfunctions_function.notary.project
+  region         = google_cloudfunctions_function.notary.region
+  cloud_function = google_cloudfunctions_function.notary.name
+  role   = "roles/cloudfunctions.invoker"
+  member = "allUsers"
 }
 
 # Note: private service used to collect email addresses on https://covidtrace.com landing page
@@ -75,4 +91,12 @@ resource "google_cloudfunctions_function" "emails" {
     OPERATOR_QPH     = "5"
     REDIS_HOST       = "${google_redis_instance.ratelimit.host}:${google_redis_instance.ratelimit.port}"
   }
+}
+
+resource "google_cloudfunctions_function_iam_member" "emails_invoker" {
+  project        = google_cloudfunctions_function.emails.project
+  region         = google_cloudfunctions_function.emails.region
+  cloud_function = google_cloudfunctions_function.emails.name
+  role   = "roles/cloudfunctions.invoker"
+  member = "allUsers"
 }
