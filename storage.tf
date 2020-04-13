@@ -18,6 +18,12 @@ resource "google_storage_bucket" "symptoms" {
   bucket_policy_only = false
 }
 
+resource "google_storage_bucket_iam_member" "symptoms_notary" {
+  bucket = google_storage_bucket.symptoms.name
+  role   = "roles/storage.objectCreator"
+  member = "serviceAccount:${google_service_account.notary.email}"
+}
+
 resource "google_storage_bucket" "operator" {
   name               = "covidtrace-operator"
   location           = "US-CENTRAL1"
@@ -34,7 +40,7 @@ resource "google_storage_bucket" "operator" {
   }
 }
 
-resource "google_storage_bucket_iam_member" "operator_notary" {
+resource "google_storage_bucket_iam_member" "operator_cloudrun" {
   bucket = google_storage_bucket.operator.name
   role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.cloudrun.email}"
@@ -118,7 +124,7 @@ resource "google_storage_bucket" "publish" {
 
 resource "google_storage_bucket_iam_member" "publish_cloudrun" {
   bucket = google_storage_bucket.publish.name
-  role   = "roles/storage.objectAdmin"
+  role   = "roles/storage.objectCreator"
   member = "serviceAccount:${google_service_account.cloudrun.email}"
 }
 
