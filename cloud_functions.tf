@@ -8,6 +8,10 @@ resource "google_cloudfunctions_function" "operator" {
   entry_point           = "Operator"
   vpc_connector         = google_vpc_access_connector.default.name
 
+  labels = {
+    deployment-tool = "cli-gcloud"
+  }
+
   environment_variables = {
     JWT_SIGNING_KEY  = data.google_kms_secret.jwt_signing_key.plaintext
     EMAILS_BACKEND   = "https://mails-k3cimrd2pq-uc.a.run.app"
@@ -29,6 +33,10 @@ resource "google_cloudfunctions_function" "notary" {
   trigger_http          = true
   entry_point           = "Notary"
   vpc_connector         = google_vpc_access_connector.default.name
+
+  labels = {
+    deployment-tool = "cli-gcloud"
+  }
 
   environment_variables = {
     JWT_SIGNING_KEY  = data.google_kms_secret.jwt_signing_key.plaintext
@@ -52,6 +60,10 @@ resource "google_cloudfunctions_function" "emails" {
   trigger_http          = true
   entry_point           = "Emails"
   vpc_connector         = google_vpc_access_connector.default.name
+
+  labels = {
+    deployment-tool = "cli-gcloud"
+  }
 
   environment_variables = {
     JWT_SIGNING_KEY  = data.google_kms_secret.jwt_signing_key.plaintext
