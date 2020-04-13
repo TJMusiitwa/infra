@@ -26,7 +26,7 @@ resource "google_cloud_run_service" "operator" {
         }
         env {
           name  = "JWT_TOKEN_DURATION"
-          value = "1h"
+          value = "24h"
         }
         env {
           name  = "JWT_REFRESH_DURATION"
