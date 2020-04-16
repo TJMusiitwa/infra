@@ -124,7 +124,7 @@ resource "google_storage_bucket" "publish" {
 
 resource "google_storage_bucket_iam_member" "publish_cloudrun" {
   bucket = google_storage_bucket.publish.name
-  role   = "roles/storage.objectCreator"
+  role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.cloudrun.email}"
 }
 
