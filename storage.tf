@@ -146,3 +146,16 @@ resource "google_storage_bucket_iam_member" "config_allusers" {
   role   = "roles/storage.objectViewer"
   member = "allUsers"
 }
+
+resource "google_storage_bucket" "test_tokens" {
+  name               = "covidtrace-test-tokens"
+  location           = "US"
+  force_destroy      = true
+  bucket_policy_only = false
+}
+
+resource "google_storage_bucket_iam_member" "test_tokens_elevated_notary" {
+  bucket = google_storage_bucket.test_tokens.name
+  role   = "roles/storage.objectCreator"
+  member = "serviceAccount:${google_service_account.elevated_notary.email}"
+}

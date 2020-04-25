@@ -70,7 +70,35 @@ resource "google_cloud_run_service" "notary" {
         }
         env {
           name  = "CLOUD_STORAGE_BUCKETS"
-          value = "covidtrace-holding,covidtrace-symptoms,covidtrace-exposures,covidtrace-tokens"
+          value = "${google_storage_bucket.locations.name},${google_storage_bucket.symptoms.name},${google_storage_bucket.exposures.name},${google_storage_bucket.bluetooth.name}"
+        }
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+}
+
+resource "google_cloud_run_service" "elevated_notary" {
+  name                       = "elevated-notary"
+  location                   = "us-central1"
+  autogenerate_revision_name = true
+
+  template {
+    spec {
+      service_account_name = google_service_account.cloudrun.email
+      containers {
+        image = "gcr.io/covidtrace/notary@sha256:c4d74b549bd4d5247aed234346455ac6693252db08c10e585911ca1b928a75c2"
+        env {
+          name  = "GOOGLE_SERVICE_ACCOUNT"
+          value = base64decode(google_service_account_key.elevated_notary.private_key)
+        }
+        env {
+          name  = "CLOUD_STORAGE_BUCKETS"
+          value = google_storage_bucket.test_tokens.name
         }
       }
     }

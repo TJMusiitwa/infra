@@ -29,3 +29,19 @@ resource "google_service_account" "cloudscheduler" {
   account_id   = "cloudscheduler"
   display_name = "cloudscheduler"
 }
+
+resource "google_service_account" "elevated_notary" {
+  account_id   = "elevated-notary"
+  display_name = "elevated-notary"
+}
+
+resource "google_service_account_iam_member" "elevated_notary_token_creator" {
+  service_account_id = google_service_account.elevated_notary.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:${google_service_account.elevated_notary.email}"
+}
+
+resource "google_service_account_key" "elevated_notary" {
+  service_account_id = google_service_account.elevated_notary.name
+  public_key_type    = "TYPE_X509_PEM_FILE"
+}
