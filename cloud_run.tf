@@ -21,6 +21,22 @@ resource "google_cloud_run_service" "operator" {
           value = data.google_kms_secret.twilio_auth_token.plaintext
         }
         env {
+          name  = "CLOUD_STORAGE_BUCKET"
+          value = google_storage_bucket.operator.name
+        }
+        env {
+          name  = "CLOUD_STORAGE_WHITELIST_BUCKET"
+          value = google_storage_bucket.whitelist.name
+        }
+        env {
+          name  = "HASH_SALT"
+          value = data.google_kms_secret.hash_salt.plaintext
+        }
+        env {
+          name  = "JWT_NAMESPACE"
+          value = "covidtrace"
+        }
+        env {
           name  = "JWT_SIGNING_KEY"
           value = data.google_kms_secret.jwt_signing_key.plaintext
         }
@@ -41,16 +57,8 @@ resource "google_cloud_run_service" "operator" {
           value = "2016h"
         }
         env {
-          name  = "CLOUD_STORAGE_BUCKET"
-          value = google_storage_bucket.operator.name
-        }
-        env {
-          name  = "JWT_NAMESPACE"
-          value = "covidtrace"
-        }
-        env {
-          name  = "HASH_SALT"
-          value = data.google_kms_secret.hash_salt.plaintext
+          name  = "JWT_ELEVATED_ROLE"
+          value = "elevated_user"
         }
       }
     }
