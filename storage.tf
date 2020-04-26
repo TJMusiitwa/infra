@@ -159,3 +159,16 @@ resource "google_storage_bucket_iam_member" "test_tokens_elevated_notary" {
   role   = "roles/storage.objectCreator"
   member = "serviceAccount:${google_service_account.elevated_notary.email}"
 }
+
+resource "google_storage_bucket" "whitelist" {
+  name               = "covidtrace-whitelist"
+  location           = "US"
+  force_destroy      = true
+  bucket_policy_only = false
+}
+
+resource "google_storage_bucket_iam_member" "whitelist_cloudrun" {
+  bucket = google_storage_bucket.whitelist.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.cloudrun.email}"
+}
