@@ -33,6 +33,14 @@ resource "google_cloud_run_service" "operator" {
           value = "2016h"
         }
         env {
+          name  = "JWT_ELEVATED_TOKEN_DURATION"
+          value = "24h"
+        }
+        env {
+          name  = "JWT_ELEVATED_REFRESH_DURATION"
+          value = "2016h"
+        }
+        env {
           name  = "CLOUD_STORAGE_BUCKET"
           value = google_storage_bucket.operator.name
         }
