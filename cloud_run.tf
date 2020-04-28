@@ -86,7 +86,7 @@ resource "google_cloud_run_service" "notary" {
         }
         env {
           name  = "CLOUD_STORAGE_BUCKETS"
-          value = "${google_storage_bucket.locations.name},${google_storage_bucket.symptoms.name},${google_storage_bucket.exposures.name},${google_storage_bucket.bluetooth.name}"
+          value = "${google_storage_bucket.locations.name},${google_storage_bucket.symptoms.name},${google_storage_bucket.exposures.name},${google_storage_bucket.bluetooth.name},${google_storage_bucket.exposure_keys_holding.name}"
         }
       }
     }
