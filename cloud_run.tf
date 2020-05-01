@@ -135,7 +135,7 @@ resource "google_cloud_run_service" "aggregator" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/aggregator@sha256:578b531476956b2b7d8c09a1b381fc6f3825048f6791f5d6d2fbb2367dfceb40"
+        image = "gcr.io/covidtrace/aggregator@sha256:8827642f201667050b023640949dca3a574f52fd43c4b3681f60bd781b50b369"
       }
     }
   }
