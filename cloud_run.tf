@@ -1,7 +1,7 @@
 locals {
   operator_sha = "sha256:eee58557fc9aaf729a83c3f844c8f949b016692d39fb0683eba6285cc279e246"
   notary_sha = "sha256:575f6f841b7d429c57eae622261d681e7296d68902000ecab91dff39c5e58380"
-  aggregator_sha = "sha256:8827642f201667050b023640949dca3a574f52fd43c4b3681f60bd781b50b369"
+  aggregator_sha = "sha256:321abb630bbf61aabc924fa5265e050e99f39a5ed364c90090a2ac6db00a6d2c"
 }
 
 resource "google_cloud_run_service" "operator" {
