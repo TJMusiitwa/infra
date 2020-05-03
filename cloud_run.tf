@@ -7,7 +7,7 @@ resource "google_cloud_run_service" "operator" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/operator@sha256:8a42d06d7d5887b43204d0a9e22c314183648a0ac4560d21df99424a1632340b"
+        image = "gcr.io/covidtrace/operator@sha256:8d7d173963bf6f4d45ce159063500280c60ae974191d347102fa66c07adeebb4"
         env {
           name  = "TWILIO_FROM_NUMBER"
           value = data.google_kms_secret.twilio_from_number.plaintext
