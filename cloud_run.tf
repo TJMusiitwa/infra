@@ -60,6 +60,22 @@ resource "google_cloud_run_service" "operator" {
           name  = "JWT_ELEVATED_ROLE"
           value = "elevated_user"
         }
+        env {
+          name  = "SENDGRID_API_KEY"
+          value = data.google_kms_secret.sendgrid_api_key.plaintext
+        }
+        env {
+          name  = "SENDGRID_DYNAMIC_TEMPLATE_ID"
+          value = "d-54d5684aad8c401ba2626f39eea3fafb"
+        }
+        env {
+          name  = "EMAIL_FROM_ADDRESS"
+          value = "operator@covidtrace.com"
+        }
+        env {
+          name  = "EMAIL_FROM_NAME"
+          value = "Covidtrace Operator"
+        }
       }
     }
   }
