@@ -32,3 +32,8 @@ data "google_kms_secret" "hash_salt" {
   crypto_key = google_kms_crypto_key.key.self_link
   ciphertext = "CiQAmXuWVC4bH5P0oz/B43d3H9Ztn2ZuCWyYEgdDVSi5xlWCCQ0SqgEAOSt9iF/p/sIt6KydnJp5Qq+pRu0UqtmyPYFnVwPBzmG8uYFIdrtpdmDCPLp+shW8fbjelqSFhKnYxWwji4epmJpsdjofbb1BlTYisA9wghc7/3czRc+eDCIaeqt6dyvJDw2GywyNODyk/N8I7FRd0XreLLXPkkm1AzgVZmi3AXc8YnKZy8COlb+4ikSWS0dmZdYQ2wryh7Kga8sKvrJP31A/2Tfri/skzw=="
 }
+
+data "google_kms_secret" "sendgrid_api_key" {
+  crypto_key = google_kms_crypto_key.key.self_link
+  ciphertext = "CiQAmXuWVH62P6U5k7O/12w73NmAmIUsSr5JG5rEI9Kc729Ci80SbgA5K32IrHwYAu72gAlOuoIRXZ9LWAB0mCYxU04qy/O91TxL6Rfe51mW2nYY1NxcVL9or7bF9egRKCIge1reyuTqs79QvhQDACQgB5EgGfuEEFf8/7pHpu0ULdq/or3Ll93mL4wyCM4VoYaZZZMy"
+}

@@ -1,3 +1,9 @@
+locals {
+  operator_sha   = "sha256:eee58557fc9aaf729a83c3f844c8f949b016692d39fb0683eba6285cc279e246"
+  notary_sha     = "sha256:575f6f841b7d429c57eae622261d681e7296d68902000ecab91dff39c5e58380"
+  aggregator_sha = "sha256:7b22e0c7fea9873d56593e5ee8239c5b3a74a0d5275c02b03bbf994267efe09f"
+}
+
 resource "google_cloud_run_service" "operator" {
   name                       = "operator"
   location                   = "us-central1"
@@ -7,7 +13,7 @@ resource "google_cloud_run_service" "operator" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/operator@sha256:8a42d06d7d5887b43204d0a9e22c314183648a0ac4560d21df99424a1632340b"
+        image = "gcr.io/covidtrace/operator@${local.operator_sha}"
         env {
           name  = "TWILIO_FROM_NUMBER"
           value = data.google_kms_secret.twilio_from_number.plaintext
@@ -60,6 +66,22 @@ resource "google_cloud_run_service" "operator" {
           name  = "JWT_ELEVATED_ROLE"
           value = "elevated_user"
         }
+        env {
+          name  = "SENDGRID_API_KEY"
+          value = data.google_kms_secret.sendgrid_api_key.plaintext
+        }
+        env {
+          name  = "SENDGRID_DYNAMIC_TEMPLATE_ID"
+          value = "d-54d5684aad8c401ba2626f39eea3fafb"
+        }
+        env {
+          name  = "EMAIL_FROM_ADDRESS"
+          value = "operator@covidtrace.com"
+        }
+        env {
+          name  = "EMAIL_FROM_NAME"
+          value = "Covidtrace Operator"
+        }
       }
     }
   }
@@ -79,7 +101,7 @@ resource "google_cloud_run_service" "notary" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/notary@sha256:c4d74b549bd4d5247aed234346455ac6693252db08c10e585911ca1b928a75c2"
+        image = "gcr.io/covidtrace/notary@${local.notary_sha}"
         env {
           name  = "GOOGLE_SERVICE_ACCOUNT"
           value = base64decode(google_service_account_key.notary.private_key)
@@ -107,7 +129,7 @@ resource "google_cloud_run_service" "elevated_notary" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/notary@sha256:c4d74b549bd4d5247aed234346455ac6693252db08c10e585911ca1b928a75c2"
+        image = "gcr.io/covidtrace/notary@${local.notary_sha}"
         env {
           name  = "GOOGLE_SERVICE_ACCOUNT"
           value = base64decode(google_service_account_key.elevated_notary.private_key)
@@ -135,7 +157,7 @@ resource "google_cloud_run_service" "aggregator" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/aggregator@sha256:7b22e0c7fea9873d56593e5ee8239c5b3a74a0d5275c02b03bbf994267efe09f"
+        image = "gcr.io/covidtrace/aggregator@${local.aggregator_sha}"
       }
     }
   }
