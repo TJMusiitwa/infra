@@ -13,7 +13,7 @@ resource "google_cloud_run_service" "operator" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/operator@${local.operator_sha}"
+        image = "gcr.io/ugtrace/operator@${local.operator_sha}"
         env {
           name  = "TWILIO_FROM_NUMBER"
           value = data.google_kms_secret.twilio_from_number.plaintext
@@ -101,7 +101,7 @@ resource "google_cloud_run_service" "notary" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/notary@${local.notary_sha}"
+        image = "gcr.io/ugtrace/notary@${local.notary_sha}"
         env {
           name  = "GOOGLE_SERVICE_ACCOUNT"
           value = base64decode(google_service_account_key.notary.private_key)
@@ -129,7 +129,7 @@ resource "google_cloud_run_service" "elevated_notary" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/notary@${local.notary_sha}"
+        image = "gcr.io/ugtrace/notary@${local.notary_sha}"
         env {
           name  = "GOOGLE_SERVICE_ACCOUNT"
           value = base64decode(google_service_account_key.elevated_notary.private_key)
@@ -157,7 +157,7 @@ resource "google_cloud_run_service" "aggregator" {
     spec {
       service_account_name = google_service_account.cloudrun.email
       containers {
-        image = "gcr.io/covidtrace/aggregator@${local.aggregator_sha}"
+        image = "gcr.io/ugtrace/aggregator@${local.aggregator_sha}"
       }
     }
   }
