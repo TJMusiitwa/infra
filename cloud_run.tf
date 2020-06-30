@@ -40,7 +40,7 @@ resource "google_cloud_run_service" "operator" {
         }
         env {
           name  = "JWT_NAMESPACE"
-          value = "covidtrace"
+          value = "ugtrace"
         }
         env {
           name  = "JWT_SIGNING_KEY"
@@ -76,11 +76,11 @@ resource "google_cloud_run_service" "operator" {
         }
         env {
           name  = "EMAIL_FROM_ADDRESS"
-          value = "operator@covidtrace.com"
+          value = "operator@ugtrace.com"
         }
         env {
           name  = "EMAIL_FROM_NAME"
-          value = "Covidtrace Operator"
+          value = "UGTrace Operator"
         }
       }
     }
