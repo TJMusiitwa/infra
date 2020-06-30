@@ -2,7 +2,7 @@ resource "google_cloud_scheduler_job" "aggregate" {
   name             = "aggregator"
   description      = "invoke aggregator aggregate job"
   schedule         = "0 * * * *"
-  time_zone        = "Kenya/Nairobi"
+  time_zone        = "Africa/Kampala"
   attempt_deadline = "1800s"
 
   http_target {
@@ -18,7 +18,7 @@ resource "google_cloud_scheduler_job" "hinting" {
   name             = "hinting"
   description      = "invoke aggregator hinting job"
   schedule         = "30 * * * *"
-  time_zone        = "Kenya/Nairobi"
+  time_zone        = "Africa/Kampala"
   attempt_deadline = "1800s"
 
   http_target {
