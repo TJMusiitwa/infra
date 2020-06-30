@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "archive" {
-  name               = "covidtrace-archive"
+  name               = "ugtrace-archive"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -12,7 +12,7 @@ resource "google_storage_bucket_iam_member" "archive_cloudrun" {
 }
 
 resource "google_storage_bucket" "symptoms" {
-  name               = "covidtrace-symptoms"
+  name               = "ugtrace-symptoms"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -25,7 +25,7 @@ resource "google_storage_bucket_iam_member" "symptoms_notary" {
 }
 
 resource "google_storage_bucket" "operator" {
-  name               = "covidtrace-operator"
+  name               = "ugtrace-operator"
   location           = "US-CENTRAL1"
   force_destroy      = true
   bucket_policy_only = false
@@ -47,7 +47,7 @@ resource "google_storage_bucket_iam_member" "operator_cloudrun" {
 }
 
 resource "google_storage_bucket" "exposures" {
-  name               = "covidtrace-exposures"
+  name               = "ugtrace-exposures"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -60,7 +60,7 @@ resource "google_storage_bucket_iam_member" "exposures_notary" {
 }
 
 resource "google_storage_bucket" "locations" {
-  name               = "covidtrace-holding"
+  name               = "ugtrace-holding"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -88,7 +88,7 @@ resource "google_storage_bucket_iam_member" "locations_cloudrun" {
 }
 
 resource "google_storage_bucket" "bluetooth" {
-  name               = "covidtrace-tokens"
+  name               = "ugtrace-tokens"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -116,7 +116,7 @@ resource "google_storage_bucket_iam_member" "bluetooth_cloudrun" {
 }
 
 resource "google_storage_bucket" "exposure_keys_holding" {
-  name               = "covidtrace-exposure-keys-holding"
+  name               = "ugtrace-exposure-keys-holding"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -144,7 +144,7 @@ resource "google_storage_bucket_iam_member" "exposure_keys_cloudrun" {
 }
 
 resource "google_storage_bucket" "exposure_keys_published" {
-  name               = "covidtrace-exposure-keys-published"
+  name               = "ugtrace-exposure-keys-published"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -163,7 +163,7 @@ resource "google_storage_bucket_iam_member" "exposure_keys_publish_allusers" {
 }
 
 resource "google_storage_bucket" "publish" {
-  name               = "covidtrace-published"
+  name               = "ugtrace-published"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -182,7 +182,7 @@ resource "google_storage_bucket_iam_member" "publish_allusers" {
 }
 
 resource "google_storage_bucket" "config" {
-  name               = "covidtrace-config"
+  name               = "ugtrace-config"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -195,7 +195,7 @@ resource "google_storage_bucket_iam_member" "config_allusers" {
 }
 
 resource "google_storage_bucket" "test_tokens" {
-  name               = "covidtrace-test-tokens"
+  name               = "ugtrace-test-tokens"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
@@ -208,7 +208,7 @@ resource "google_storage_bucket_iam_member" "test_tokens_elevated_notary" {
 }
 
 resource "google_storage_bucket" "whitelist" {
-  name               = "covidtrace-whitelist"
+  name               = "ugtrace-whitelist"
   location           = "US"
   force_destroy      = true
   bucket_policy_only = false
